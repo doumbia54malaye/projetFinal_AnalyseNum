@@ -1,0 +1,319 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+\onehalfspacing
+
+% Configuration des en-têtes
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{DOUMBIA MALAYE}
+\fancyhead[C]{M2 GI}
+\fancyhead[R]{UE : Analyse Numérique}
+\fancyfoot[L]{Encadreur : Dr ZEZE}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% Configuration des chapitres
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+
+\begin{document}
+
+% Page de titre
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+
+{\Large République de Côte d'Ivoire\\}
+{\large Union -- Discipline -- Travail\\}
+\vspace{0.5cm}
+{\large Ministère de l'Enseignement Supérieur et de la Recherche Scientifique\\}
+\vspace{0.5cm}
+{\large Université Nangui ABROGOUA (UNA)\\}
+\vspace{0.3cm}
+{\normalsize Unité de Formation et de Recherche Sciences Fondamentales et Appliquées (UFR-SFA)\\}
+\vspace{0.5cm}
+{\normalsize Année Académique : 2025-2026\\}
+
+\vspace{2cm}
+
+{\LARGE\bfseries MEMOIRE POUR L'OBTENTION DU DIPLOME DE MASTER\\}
+\vspace{0.5cm}
+{\Large Mention : INFORMATIQUE\\}
+{\large Parcours : GENIE INFORMATIQUE\\}
+
+\vspace{2cm}
+
+{\large Présenté par : \textbf{DOUMBIA MALAYE}\\}
+
+\vspace{2cm}
+
+{\huge\bfseries Thème :\\}
+\vspace{0.5cm}
+{\Huge\bfseries METHODE D'INTEGRATION NUMERIQUE\\}
+
+\vspace{2cm}
+
+{\large Soutenu le 06/01/2026\\}
+
+\vfill
+
+{\large Unité de Formation et de Recherche Sciences Fondamentales et Appliquées\\}
+{\Large\bfseries UNIVERSITE NANGUI ABROGOUA}
+
+\end{titlepage}
+
+% Résumé
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+
+L'intégration numérique est largement utilisée lorsque le calcul analytique exact d'une intégrale est difficile ou impossible. Ce projet présente une étude comparative de plusieurs méthodes d'intégration numérique, notamment les méthodes de Gauss--Legendre, Gauss--Laguerre, Gauss--Tchebychev, la méthode de Simpson et la méthode de la spline quadratique. La comparaison porte sur la précision et le temps d'exécution en fonction du nombre de points d'intégration, pour différentes fonctions tests représentatives. Les résultats montrent que les méthodes de quadrature de Gauss offrent une grande précision avec un nombre réduit de points lorsque leurs conditions d'application sont respectées, tandis que les méthodes classiques restent efficaces pour les fonctions régulières mais présentent des limites en présence de singularités ou d'intégrales impropres.
+
+\vspace{0.5cm}
+\textbf{Mots-clés :} intégration numérique, quadrature de Gauss, Simpson, spline quadratique, précision numérique
+
+% Abstract
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Numerical integration is widely used when the exact analytical evaluation of an integral is difficult or impossible. This project presents a comparative study of several numerical integration methods, including Gauss--Legendre, Gauss--Laguerre, Gauss--Tchebychev, Simpson's method, and the quadratic spline method. The comparison focuses on accuracy and computational time as functions of the number of integration points, using various representative test functions. The results show that Gauss quadrature methods achieve high accuracy with a small number of points when applied within their theoretical framework, while classical methods remain effective for smooth functions but exhibit limitations in the presence of singularities or improper integrals.
+
+\vspace{0.5cm}
+\textbf{Keywords:} numerical integration, Gauss quadrature, Simpson's method, quadratic spline, numerical accuracy.
+
+% Table des matières
+\tableofcontents
+
+% Introduction
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
+L'intégration numérique est une composante essentielle de l'analyse numérique et du calcul scientifique. Elle intervient dans de nombreux domaines tels que la physique, l'ingénierie, l'économie ou encore les sciences informatiques, où l'évaluation exacte d'une intégrale est souvent difficile, voire impossible. Dans de nombreux cas, les fonctions à intégrer ne possèdent pas de primitive explicite ou présentent des comportements complexes, ce qui rend nécessaire l'utilisation de méthodes numériques d'approximation.
+
+Plusieurs méthodes d'intégration numérique ont été développées afin de répondre à ces besoins. Les méthodes classiques, comme la méthode de Simpson ou les techniques basées sur l'interpolation polynomiale, sont largement utilisées en raison de leur simplicité et de leur facilité de mise en œuvre. Cependant, leur efficacité dépend fortement de la régularité de la fonction et du choix du pas de discrétisation. Lorsque la fonction présente des singularités, des oscillations ou lorsqu'il s'agit d'intégrales impropres, ces méthodes peuvent perdre en précision ou devenir instables.
+
+Parallèlement, les méthodes de quadrature de Gauss constituent une famille de méthodes plus avancées, reposant sur les propriétés des polynômes orthogonaux. Ces méthodes permettent d'obtenir une grande précision avec un nombre réduit de points d'intégration, à condition d'être appliquées dans leur cadre théorique approprié. Les méthodes de Gauss--Legendre, Gauss--Laguerre et Gauss--Tchebychev sont ainsi adaptées respectivement aux intégrales définies sur un intervalle fini, aux intégrales impropres à décroissance exponentielle et aux intégrales pondérées présentant des singularités aux bornes.
+
+Dans ce contexte, le choix de la méthode d'intégration numérique la plus adaptée n'est pas toujours évident et dépend fortement de la nature de la fonction à intégrer et du domaine considéré. Une mauvaise adéquation entre la méthode choisie et le problème traité peut conduire à des résultats peu précis ou à une augmentation inutile du temps de calcul.
+
+L'objectif de ce projet est de comparer plusieurs méthodes d'intégration numérique, à savoir les méthodes de Gauss--Legendre, Gauss--Laguerre, Gauss--Tchebychev, la méthode de Simpson et la méthode de la spline quadratique. La comparaison porte sur la précision des résultats et le temps d'exécution en fonction du nombre de points d'intégration, en utilisant différentes fonctions tests représentatives. Cette étude vise à mettre en évidence les avantages et les limites de chaque méthode, afin de mieux orienter le choix de la méthode d'intégration en fonction du type de problème rencontré.
+
+% Objectifs du projet
+\chapter*{Objectifs du projet}
+\addcontentsline{toc}{chapter}{Objectifs du projet}
+
+\section*{1.1. Objectif général}
+
+L'objectif général de ce projet est d'étudier et de comparer les performances de différentes méthodes d'intégration numérique en termes de précision et de temps d'exécution, afin d'identifier les méthodes les plus adaptées selon la nature de la fonction à intégrer.
+
+\section*{1.2. Objectifs spécifiques}
+
+De manière plus précise, ce projet vise à :
+\begin{itemize}
+\item présenter les principes théoriques des méthodes de Gauss--Legendre, Gauss--Laguerre, Gauss--Tchebychev, de la méthode de Simpson et de la méthode de la spline quadratique ;
+\item implémenter ces méthodes à l'aide du langage Python ;
+\item appliquer les différentes méthodes à plusieurs fonctions tests représentatives ;
+\item analyser l'évolution de l'erreur numérique en fonction du nombre de points d'intégration ;
+\item comparer le temps d'exécution des méthodes étudiées ;
+\item mettre en évidence les avantages et les limites de chaque méthode selon le type d'intégrale considérée.
+\end{itemize}
+
+% Chapitre 1
+\chapter{Rappel théorique}
+
+Ce chapitre présente les principes théoriques des différentes méthodes d'intégration numérique étudiées dans ce projet. L'objectif n'est pas de fournir des démonstrations mathématiques détaillées, mais de rappeler les idées essentielles, les formules principales et les domaines d'application de chaque méthode afin de mieux comprendre les résultats numériques obtenus par la suite.
+
+\section{Intégration numérique : généralités}
+
+L'intégration numérique consiste à approximer la valeur d'une intégrale définie ou impropre lorsque le calcul analytique exact est difficile ou impossible. De manière générale, une intégrale définie sur un intervalle $[a, b]$ s'écrit :
+\begin{equation}
+\int_a^b f(x)\,dx
+\end{equation}
+
+Les méthodes numériques cherchent à approximer cette intégrale par une combinaison linéaire des valeurs de la fonction en un nombre fini de points appelés points d'intégration ou nœuds. La précision de l'approximation dépend de plusieurs facteurs, notamment la régularité de la fonction, le nombre de points utilisés et la méthode choisie.
+
+\section{Méthode de Gauss--Legendre}
+
+La méthode de Gauss--Legendre est une méthode de quadrature destinée à l'approximation des intégrales définies sur un intervalle fini $[a, b]$. Elle repose sur l'utilisation des polynômes de Legendre, qui forment une famille de polynômes orthogonaux sur l'intervalle $[-1,1]$.
+
+Le principe de la méthode consiste à transformer l'intégrale sur $[a, b]$ en une intégrale sur $[-1, 1]$, puis à approximer cette dernière par une somme pondérée des valeurs de la fonction aux nœuds de Gauss. Ces nœuds correspondent aux zéros du polynôme de Legendre de degré $n$.
+
+Une propriété importante de la méthode de Gauss--Legendre est qu'elle est exacte pour tout polynôme de degré inférieur ou égal à $2n-1$. Cette propriété explique sa grande précision, même pour un nombre réduit de points d'intégration.
+
+\section{Méthode de Gauss--Laguerre}
+
+La méthode de Gauss--Laguerre est conçue pour l'approximation des intégrales impropres définies sur l'intervalle $[0, +\infty[$ de la forme :
+\begin{equation}
+\int_0^{+\infty} f(x)e^{-x}\,dx
+\end{equation}
+
+Cette méthode repose sur les polynômes de Laguerre, qui sont orthogonaux sur $[0, +\infty[$ pour le poids exponentiel $e^{-x}$. Les nœuds de la méthode correspondent aux zéros du polynôme de Laguerre de degré $n$.
+
+La méthode de Gauss--Laguerre est particulièrement efficace pour les fonctions présentant une décroissance exponentielle. Lorsqu'elle est utilisée dans son cadre théorique approprié, elle permet d'obtenir une excellente précision avec un nombre limité de points d'intégration.
+
+\section{Méthode de Gauss--Tchebychev}
+
+La méthode de Gauss--Tchebychev est adaptée à l'approximation des intégrales pondérées présentant une singularité aux bornes de l'intervalle. Elle est généralement utilisée pour des intégrales de la forme :
+\begin{equation}
+\int_{-1}^{1} \frac{f(x)}{\sqrt{1-x^2}}\,dx
+\end{equation}
+
+Cette méthode repose sur les polynômes de Tchebychev, qui sont orthogonaux sur l'intervalle $[-1, 1]$ pour le poids $\frac{1}{\sqrt{1-x^2}}$. Les points d'intégration sont définis explicitement à partir d'une expression trigonométrique, ce qui simplifie leur calcul.
+
+La méthode de Gauss--Tchebychev est particulièrement performante pour les fonctions présentant des singularités aux bornes de l'intervalle, là où les méthodes classiques peuvent devenir instables.
+
+\section{Méthode de Simpson}
+
+La méthode de Simpson est une méthode d'intégration numérique classique, simple à implémenter et largement utilisée. Elle repose sur l'approximation de la fonction par des polynômes de degré deux sur des sous-intervalles de l'intervalle $[a, b]$.
+
+Dans sa version composite, l'intervalle est découpé en un nombre pair de sous-intervalles de même longueur. La méthode de Simpson offre une bonne précision pour les fonctions régulières et continues, mais sa performance peut se dégrader lorsque la fonction présente des variations rapides ou des singularités.
+
+\section{Méthode par spline quadratique}
+
+La méthode de la spline quadratique consiste à approximer la fonction à intégrer par une interpolation polynomiale par morceaux, chaque morceau étant un polynôme de degré deux. L'intégrale est ensuite obtenue en intégrant analytiquement chaque polynôme sur son sous-intervalle.
+
+Cette méthode permet d'obtenir une approximation plus souple que les méthodes basées sur un polynôme global, en assurant une bonne continuité de la fonction approximée. Toutefois, comme les autres méthodes classiques, elle reste sensible à la régularité de la fonction et peut perdre en précision en présence de singularités.
+
+% Chapitre 2
+\chapter{Méthodologie numérique}
+
+Ce chapitre présente la démarche expérimentale adoptée pour comparer les différentes méthodes d'intégration numérique étudiées dans ce projet. Il décrit l'environnement de travail, le choix des fonctions tests, les paramètres numériques retenus ainsi que les critères d'évaluation utilisés pour analyser les performances des méthodes.
+
+\section{Environnement de travail (Python, bibliothèques)}
+
+Les simulations numériques ont été réalisées à l'aide du langage de programmation Python, choisi pour sa simplicité, sa lisibilité et la richesse de son écosystème scientifique. Les bibliothèques suivantes ont été utilisées :
+\begin{itemize}
+\item \textbf{NumPy}, pour le calcul numérique et la manipulation des tableaux ;
+\item \textbf{SymPy}, pour le calcul symbolique et l'obtention, lorsque cela est possible, des intégrales exactes ;
+\item \textbf{Matplotlib}, pour la visualisation graphique des résultats.
+\end{itemize}
+
+Les calculs ont été effectués dans un environnement de type Jupyter Notebook, permettant une exécution interactive du code et une analyse progressive des résultats. Ce choix facilite également la reproductibilité des expériences numériques.
+
+\section{Choix des fonctions tests}
+
+Afin d'évaluer les performances des différentes méthodes d'intégration numérique dans des contextes variés, plusieurs fonctions tests ont été sélectionnées. Ces fonctions ont été choisies de manière à représenter différents comportements rencontrés en pratique :
+\begin{itemize}
+\item une fonction adaptée à la méthode de Gauss--Laguerre, présentant une décroissance exponentielle ;
+\item une fonction adaptée à la méthode de Gauss--Tchebychev, présentant une singularité aux bornes de l'intervalle ;
+\item une fonction combinant une décroissance exponentielle et un comportement oscillatoire ;
+\item une fonction régulière et continue définie sur un intervalle fini.
+\end{itemize}
+
+Ce choix permet d'analyser le comportement des méthodes aussi bien dans leur cadre théorique naturel que dans des situations plus générales.
+
+\section{Paramètres numériques (choix de $n$)}
+
+Pour chaque fonction test, les différentes méthodes d'intégration ont été appliquées en faisant varier le nombre de points d'intégration $n$. Les valeurs de $n$ ont été choisies de manière croissante afin d'observer l'évolution de la précision et du temps de calcul en fonction de la taille du problème.
+
+Dans le cas des méthodes classiques, comme la méthode de Simpson ou la méthode de la spline quadratique, le paramètre $n$ correspond au nombre de sous-intervalles utilisés pour discrétiser l'intervalle d'intégration. Pour les méthodes de quadrature de Gauss, $n$ représente le nombre de nœuds de Gauss employés dans l'approximation.
+
+\section{Mesures de performance (erreur, temps)}
+
+Deux critères principaux ont été retenus pour évaluer les performances des méthodes d'intégration numérique :
+\begin{itemize}
+\item la \textbf{précision}, mesurée à l'aide de l'erreur absolue définie par
+\begin{equation}
+E(n) = |I_{\text{exact}} - I_{\text{num}}(n)|
+\end{equation}
+où $I_{\text{exact}}$ représente la valeur exacte de l'intégrale, obtenue par calcul analytique lorsque cela est possible, et $I_{\text{num}}(n)$ l'approximation numérique fournie par la méthode étudiée ;
+\item le \textbf{temps d'exécution}, mesuré lors du calcul de l'intégrale pour chaque méthode et chaque valeur de $n$.
+\end{itemize}
+
+Ces deux critères permettent d'évaluer le compromis entre précision numérique et coût de calcul, et constituent la base de la comparaison entre les différentes méthodes.
+
+\section{Organisation des expériences numériques}
+
+Pour chaque fonction test, les étapes suivantes ont été suivies :
+\begin{itemize}
+\item calcul de l'intégrale exacte lorsque cela est possible ;
+\item application de chaque méthode d'intégration pour différentes valeurs de $n$ ;
+\item calcul de l'erreur numérique correspondante ;
+\item mesure du temps d'exécution ;
+\item représentation graphique de l'erreur et du temps d'exécution en fonction de $n$.
+\end{itemize}
+
+Cette procédure garantit une comparaison cohérente et homogène des méthodes étudiées.
+
+% Chapitre 3
+\chapter{Résultats numériques}
+
+Ce chapitre présente les résultats obtenus à partir des expériences numériques décrites dans le chapitre précédent. Les performances des différentes méthodes d'intégration numérique sont analysées à travers l'évolution de l'erreur et du temps d'exécution en fonction du nombre de points d'intégration, pour chaque fonction test considérée.
+
+\section{Résultats pour chaque fonction test}
+
+Pour chaque fonction test, deux types de graphiques ont été générés :
+\begin{itemize}
+\item l'évolution de l'erreur absolue en fonction du nombre de points d'intégration $n$ ;
+\item l'évolution du temps d'exécution en fonction du nombre de points d'intégration $n$.
+\end{itemize}
+
+Les résultats montrent que le comportement des méthodes dépend fortement de la nature de la fonction intégrée. Les méthodes de quadrature de Gauss présentent généralement une convergence rapide, avec une diminution significative de l'erreur dès les premières valeurs de $n$, tandis que les méthodes classiques nécessitent un nombre plus élevé de points pour atteindre une précision comparable.
+
+\section{Comparaison des méthodes}
+
+\subsection{Méthodes de quadrature de Gauss}
+
+Les méthodes de Gauss--Legendre, Gauss--Laguerre et Gauss--Tchebychev montrent une excellente précision lorsqu'elles sont appliquées dans leur cadre théorique naturel. En particulier, la méthode de Gauss--Legendre se distingue par sa rapidité de convergence pour les fonctions régulières définies sur un intervalle fini.
+
+La méthode de Gauss--Laguerre est particulièrement efficace pour les fonctions présentant une décroissance exponentielle, tandis que la méthode de Gauss--Tchebychev reste stable et précise pour les intégrales pondérées présentant des singularités aux bornes, là où les méthodes classiques échouent.
+
+\subsection{Méthodes classiques}
+
+La méthode de Simpson et la méthode de la spline quadratique fournissent de bons résultats pour les fonctions régulières et continues. Toutefois, leur précision diminue lorsque la fonction présente des singularités ou des variations rapides. Dans ces cas, l'erreur peut devenir importante et certaines méthodes peuvent produire des valeurs non définies, ce qui se traduit par l'absence de certaines courbes sur les graphiques.
+
+\section{Analyse des graphes (erreur / temps)}
+
+L'analyse des graphiques d'erreur montre que les méthodes de quadrature de Gauss atteignent une précision élevée avec un nombre réduit de points d'intégration, ce qui confirme leur exactitude théorique. À l'inverse, les méthodes classiques nécessitent un raffinement plus important du maillage pour obtenir une précision comparable, ce qui entraîne une augmentation du temps de calcul.
+
+Les graphiques de temps d'exécution indiquent que, pour des valeurs modestes de $n$, les méthodes de Gauss présentent un coût de calcul relativement faible, en raison du nombre limité de points d'évaluation de la fonction. Lorsque $n$ augmente, le temps d'exécution croît pour l'ensemble des méthodes, mais de manière plus marquée pour les méthodes classiques.
+
+% Chapitre 4
+\chapter{Discussion et limites}
+
+Ce chapitre propose une analyse critique des résultats numériques obtenus dans le chapitre précédent. Il met en évidence les points forts et les limites des différentes méthodes d'intégration numérique étudiées, en tenant compte de la nature des fonctions tests et des critères de performance retenus.
+
+\section{Interprétation des résultats}
+
+Les résultats numériques confirment que le comportement des méthodes d'intégration numérique dépend fortement du type de fonction à intégrer et du domaine considéré. Les méthodes de quadrature de Gauss se distinguent par leur grande précision et leur rapidité de convergence lorsqu'elles sont utilisées dans leur cadre théorique approprié. En particulier, la méthode de Gauss--Legendre offre d'excellentes performances pour les fonctions régulières définies sur un intervalle fini, tandis que la méthode de Gauss--Laguerre est bien adaptée aux intégrales impropres présentant une décroissance exponentielle.
+
+La méthode de Gauss--Tchebychev apparaît comme la plus stable pour les fonctions présentant une singularité aux bornes de l'intervalle. Dans ce cas, les méthodes classiques, telles que la méthode de Simpson et la méthode de la spline quadratique, peuvent devenir instables ou produire des résultats non définis. Cette observation souligne l'importance du respect des hypothèses théoriques propres à chaque méthode.
+
+Pour les fonctions régulières, les méthodes classiques fournissent néanmoins des résultats satisfaisants, en particulier pour des valeurs suffisamment grandes du nombre de sous-intervalles. Toutefois, cette amélioration de la précision s'accompagne d'une augmentation du temps de calcul, ce qui peut constituer une contrainte dans des applications nécessitant une efficacité computationnelle élevée.
+
+\section{Avantages et inconvénients des méthodes}
+
+L'étude comparative permet de dégager les avantages et les inconvénients des méthodes étudiées. Les méthodes de quadrature de Gauss présentent l'avantage majeur d'une grande précision pour un nombre réduit de points d'intégration, ce qui les rend particulièrement efficaces pour des problèmes nécessitant une haute précision. En revanche, leur mise en œuvre nécessite une bonne connaissance de la nature de l'intégrale et des conditions d'application, ce qui peut limiter leur utilisation dans des contextes plus généraux.
+
+Les méthodes classiques, quant à elles, sont simples à implémenter et faciles à comprendre. Elles constituent souvent un premier choix pour l'approximation d'intégrales définies de fonctions régulières. Cependant, leur dépendance à la régularité de la fonction et au pas de discrétisation peut entraîner des limitations importantes en termes de précision et de stabilité.
+
+\section{Limites du projet}
+
+Ce projet présente certaines limites qu'il convient de souligner. Tout d'abord, l'étude est restreinte à un nombre limité de fonctions tests, ce qui ne permet pas de couvrir l'ensemble des situations rencontrées en pratique. De plus, les expériences numériques ont été réalisées en utilisant le langage Python, dont les performances peuvent être inférieures à celles de langages compilés pour des calculs intensifs.
+
+Par ailleurs, l'analyse s'est principalement appuyée sur l'erreur absolue et le temps d'exécution comme critères de performance. D'autres indicateurs, tels que l'erreur relative ou l'analyse de la stabilité numérique, auraient pu enrichir l'étude. Enfin, certaines méthodes n'ont été testées que dans leur cadre théorique naturel, ce qui limite la portée générale de la comparaison.
+
+% Conclusion
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+Ce projet a porté sur l'étude comparative de plusieurs méthodes d'intégration numérique, à savoir les méthodes de Gauss--Legendre, Gauss--Laguerre, Gauss--Tchebychev, la méthode de Simpson et la méthode de la spline quadratique. L'objectif principal était d'analyser leurs performances en termes de précision et de temps d'exécution, en fonction de la nature de la fonction intégrée et du nombre de points d'intégration utilisés.
+
+Les résultats numériques ont montré que les méthodes de quadrature de Gauss offrent une précision élevée avec un nombre réduit de points d'intégration, à condition d'être appliquées dans leur cadre théorique approprié. En particulier, la méthode de Gauss--Legendre s'est révélée très efficace pour les fonctions régulières définies sur un intervalle fini, tandis que la méthode de Gauss--Laguerre et la méthode de Gauss--Tchebychev ont montré leur pertinence respective pour les intégrales impropres à décroissance exponentielle et pour les intégrales pondérées présentant des singularités aux bornes.
+
+Les méthodes classiques, telles que la méthode de Simpson et la méthode de la spline quadratique, ont fourni des résultats satisfaisants pour les fonctions régulières, mais leur efficacité diminue lorsque la fonction présente des singularités ou des variations rapides. Ces méthodes nécessitent alors un nombre plus important de points d'intégration pour atteindre une précision comparable, ce qui se traduit par une augmentation du temps de calcul.
+
+Cette étude met en évidence l'importance du choix de la méthode d'intégration numérique en fonction de la nature du problème traité. Elle montre qu'aucune méthode n'est universellement optimale et que la connaissance des hypothèses et des limites de chaque méthode est essentielle pour obtenir des résultats fiables. En perspective, ce travail pourrait être étendu à l'étude d'autres méthodes de quadrature, à l'analyse d'intégrales fortement oscillantes ou encore à des problèmes d'intégration multidimensionnelle.
+
+\end{document}
