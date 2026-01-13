@@ -1,0 +1,259 @@
+\documentclass{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+%================================================
+% PAGE DE GARDE
+%================================================
+\title[Analyse Numérique]{Analyse Numérique\\
+Équations différentielles et intégration numérique}
+\author{DOUMBIA MALAYE}
+\institute{
+Discipline : Analyse Numérique\\
+Enseignant : Dr ZEZE
+}
+\date{\today}
+
+\begin{document}
+
+%------------------------------------------------
+\begin{frame}
+\titlepage
+\end{frame}
+
+%================================================
+% INTRODUCTION GÉNÉRALE
+%================================================
+
+\begin{frame}{Introduction générale}
+L’analyse numérique permet de résoudre ou d’approximer des problèmes
+mathématiques lorsque les solutions exactes sont difficiles à exploiter.
+
+\vspace{0.3cm}
+Ce travail est structuré en deux parties :
+\begin{itemize}
+\item la résolution numérique des équations différentielles ordinaires
+\item la comparaison de méthodes d’intégration numérique
+\end{itemize}
+\end{frame}
+
+%================================================
+% PARTIE I : ÉDO
+%================================================
+
+\begin{frame}{Partie I : Équations différentielles ordinaires}
+\centering
+\textbf{Comparaison des méthodes d’Euler, Heun et Runge--Kutta d’ordre 4}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Problème mathématique étudié}
+On considère l’équation différentielle :
+\[
+y'(t) = y(t), \quad y(0) = 1
+\]
+
+La solution exacte est :
+\[
+y(t) = e^t
+\]
+
+L’erreur numérique est définie par :
+\[
+\text{Erreur}(t) = |y_{\text{exact}}(t) - y_{\text{num}}(t)|
+\]
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Méthodes numériques utilisées (EDO)}
+\begin{itemize}
+\item \textbf{Euler} : méthode explicite d’ordre 1, rapide mais peu précise
+\item \textbf{Heun} : méthode d’ordre 2, amélioration d’Euler
+\item \textbf{RK4} : méthode d’ordre 4, très précise
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Résultats numériques — Pas $h = 0.4$}
+
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{graph_erreur pas egale 0,4.png}
+\small Erreur numérique
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{graph_temps pour pas egale 0,4.png}
+\small Temps d'exécution
+\end{columns}
+
+\vspace{0.2cm}
+\textbf{Analyse :}
+\begin{itemize}
+\item Euler présente une erreur importante.
+\item Heun améliore légèrement la précision.
+\item RK4 reste très précis mais plus coûteux.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Résultats numériques — Pas $h = 0.2$}
+
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{graph_erreur pas egale 0,2.png}
+\small Erreur numérique
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{graph_temps pour pas egale 0,2.png}
+\small Temps d'exécution
+\end{columns}
+
+\vspace{0.2cm}
+\textbf{Analyse :}
+\begin{itemize}
+\item La réduction du pas améliore la précision globale.
+\item Heun offre un bon compromis précision / temps.
+\item RK4 atteint une erreur très faible.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Résultats numériques — Pas $h = 0.075$}
+
+\begin{columns}
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{graph_erreur pas egale 0,075.png}
+\small Erreur numérique
+
+\column{0.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{graph_temps pour pas egale 0,075.png}
+\small Temps d'exécution
+\end{columns}
+
+\vspace{0.2cm}
+\textbf{Analyse :}
+\begin{itemize}
+\item RK4 atteint une précision quasi machine.
+\item Euler reste peu précis malgré le petit pas.
+\item Le coût temporel de RK4 augmente fortement.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Conclusion partielle — EDO}
+\begin{itemize}
+\item Euler est rapide mais peu précis.
+\item Heun représente un bon compromis.
+\item RK4 est la méthode la plus précise.
+\item Le pas de temps influence fortement l’erreur.
+\end{itemize}
+\end{frame}
+
+%================================================
+% PARTIE II : INTÉGRATION NUMÉRIQUE
+%================================================
+
+\begin{frame}{Partie II : Intégration numérique}
+\centering
+\textbf{Comparaison des méthodes d’intégration numérique}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Objectifs de l’intégration numérique}
+\begin{itemize}
+\item Approcher des intégrales difficiles analytiquement
+\item Comparer précision et temps d’exécution
+\item Étudier l’adéquation méthode / fonction
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Méthodes étudiées}
+\begin{itemize}
+\item Gauss--Legendre
+\item Gauss--Laguerre
+\item Gauss--Tchebychev
+\item Simpson
+\item Splines quadratiques
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Rappels théoriques}
+\begin{itemize}
+\item Les méthodes de Gauss sont très précises
+\item Les méthodes composites sont rapides
+\item Le choix dépend du domaine et de la fonction
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Erreur numérique : Laguerre}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_err_guerre.png}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Temps d'exécution : Laguerre}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_temps_guerre.png}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Erreur numérique : Tchebychev}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_err_tchebytchev.png}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Temps d'exécution : Tchebychev}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_temps_tchebychev.png}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Erreur numérique : Fonction combinaison}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_err_combin.png}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Temps d'exécution : Fonction combinaison}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_temps_combin.png}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Erreur numérique : Fonction quelconque}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_err_quelconque.png}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Temps d'exécution : Fonction quelconque}
+\centering
+\includegraphics[width=0.9\textwidth]{graph_temps_quelconque.png}
+\end{frame}
+
+%================================================
+% CONCLUSION GÉNÉRALE
+%================================================
+
+\begin{frame}{Conclusion générale}
+\begin{itemize}
+\item Les deux parties du projet mettent en évidence le compromis fondamental entre précision et coût de calcul.
+\item Dans la résolution des EDO, les méthodes d’ordre élevé offrent une meilleure précision au prix d’un temps d’exécution plus important.
+\item En intégration numérique, l’efficacité d’une méthode dépend fortement de l’adéquation entre la fonction, le domaine et la méthode choisie.
+\item Ainsi, aucun algorithme n’est universel : le choix de la méthode doit toujours être guidé par le problème étudié.
+\item L’analyse numérique constitue donc un outil essentiel pour résoudre efficacement des problèmes réels.
+\end{itemize}
+\end{frame}
+
+\end{document}
